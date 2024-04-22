@@ -22,7 +22,7 @@
   "homepage": "https://github.com/Zwiqler94/MacAppUrlFinder#readme",
   "dependencies": {
     "@api/iconfinder": "file:.api/apis/iconfinder",
-    "@eslint/js": "^8.50.0",
+    "@eslint/js": "^9.1.1",
     "api": "^6.1.1",
     "electron": "^27.3.9",
     "eslint-config-prettier": "^9.0.0",
