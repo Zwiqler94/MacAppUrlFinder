@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { app, BrowserWindow, ipcMain, IpcMainInvokeEvent } from "electron";
+// import * as dotenv from 'dotenv/config';
 import path from "path";
 import { spawn } from "child_process";
-import { existsSync, writeFile } from "fs";
 import icons from "@api/iconfinder";
-const x = icons;
+
 let start = 0,
   end = 25;
 
@@ -15,17 +15,32 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
       preload: path.join(__dirname, "preload.js"),
     },
   });
 
-  void win.loadFile("./dist/src/index.html");
+  // and load the index.html of the app.
+  if (MAIN_WINDOW_VITE_DEV_SERVER_URL != undefined) {
+    win.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
+  } else {
+    win.loadFile(
+      path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`)
+    );
+  }
+
+  // void win.loadFile("./dist/index.html");
   win.webContents.openDevTools();
 
   win.webContents.on("did-navigate", () => {
     win.webContents.goBack();
     createUrlList();
   });
+
+  // ipcMain.on("invokeEnv", (event) => {
+  //   event.sender.send("envReply", dotenv);
+  // });
 
   createUrlList();
 
@@ -93,9 +108,8 @@ function createWindow() {
         //   `window.localStorage.getItem("apps")`,
         //   true
         // );
-   
-        console.log(app.getPath('sessionData'))
-     
+
+        console.log(app.getPath("sessionData"));
       } catch (err) {
         console.error(err);
       }
@@ -126,10 +140,10 @@ app.whenReady().then(() => {
 
 async function setIcons(event: any, value: string) {
   let iconUrl = "";
-  x.auth(process.env.ICON_API_KEY as string);
+  icons.auth(process.env.ICON_API_KEY as string);
 
   try {
-    const { data } = await x.search({ query: value, count: 2 });
+    const { data } = await icons.search({ query: value, count: 2 });
     const icon = data;
     let iconArr = icon.icons[1];
     let url = iconArr ? iconArr.raster_sizes[3]?.formats[0].preview_url : "";

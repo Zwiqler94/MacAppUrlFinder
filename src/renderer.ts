@@ -1,8 +1,10 @@
-const p = document.getElementById("x");
-const outputCheck: string | any[] = [];
+
+
 
 window.electronAPI.readUrls(
-  async (event, value: { name: string; scheme: string[] }[]) => {
+  async (event: any, value: { name: string; scheme: string[] }[]) => {
+    const p = document.getElementById("x");
+    const outputCheck: string | any[] = [];
     let ulTop = document.createElement("ul");
     if (p) {
       for (const app of value) {

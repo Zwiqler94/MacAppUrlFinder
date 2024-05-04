@@ -1,8 +1,8 @@
 /* eslint-env node */
-const cjsExport = require("@typescript-eslint/eslint-plugin");
-const tsEslintParser = require("@typescript-eslint/parser");
-import js = require("@eslint/js");
-const prettier = require("eslint-config-prettier");
+import cjsExport from "@typescript-eslint/eslint-plugin";
+// import tsEslintParser from "@typescript-eslint/parser";
+import * as js from "@eslint/js";
+import prettier from "eslint-config-prettier";
 
 module.exports = [
   js.configs.recommended,
@@ -16,7 +16,7 @@ module.exports = [
 
     plugins: { "@typescript-eslint": cjsExport },
     languageOptions: {
-      parser: tsEslintParser,
+      // parser: tsEslintParser,
       parserOptions: {
         project: ["tsconfig.json"],
         createDefaultProgram: true,

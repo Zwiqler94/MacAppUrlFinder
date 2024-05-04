@@ -6,6 +6,12 @@
       "source": "@iconfinder/v4#ipnv1bl7egvnxy",
       "integrity": "sha512-0y6i9eyo0B4w8TPRSIGWPUZO4n697rn8kNEz9oa3J9vUBmt8h07GMysiCVGhOtyOY+PIQHtou0xEn9kQQlrmtQ==",
       "installerVersion": "6.1.1"
+    },
+    {
+      "identifier": "icnfndr",
+      "source": ".api/apis/iconfinder/openapi.json",
+      "integrity": "sha512-92YnfZ3l+aIKus1rr8Gj1kLUZpzivv3RETShLQpoAXceFki3udZYzr++u7nyVAorm1CMnv7NoXitXjXPcdAfcg==",
+      "installerVersion": "6.1.1"
     }
   ]
 }

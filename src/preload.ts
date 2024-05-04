@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { contextBridge, ipcRenderer } = require("electron");
+import { contextBridge, ipcRenderer } from "electron";
 
 contextBridge.exposeInMainWorld("electronAPI", {
   readUrls: (
@@ -10,3 +10,16 @@ contextBridge.exposeInMainWorld("electronAPI", {
   ) => ipcRenderer.on("readUrls", callback),
   setIcons: (value: string) => ipcRenderer.invoke("setIcons", value),
 });
+
+// async function getConfig() {
+//   let config = null;
+//   if (ipcRenderer) {
+//     ipcRenderer.on("envReply", (event, arg) => {
+//       config = arg.parsed;
+//       return config.parsed;
+//     });
+//     ipcRenderer.send("invokeEnv");
+//   }
+// }
+
+// getConfig();
