@@ -1,0 +1,42 @@
+var maker_squirrel = require("@electron-forge/maker-squirrel");
+var maker_zip = require("@electron-forge/maker-zip");
+var maker_deb = require("@electron-forge/maker-deb");
+var maker_rpm = require("@electron-forge/maker-rpm");
+var plugin_vite = require("@electron-forge/plugin-vite");
+var config = {
+  packagerConfig: {},
+  rebuildConfig: {},
+  makers: [
+    new maker_squirrel.MakerSquirrel({}),
+    new maker_zip.MakerZIP({}, ["darwin"]),
+    new maker_rpm.MakerRpm({}),
+    new maker_deb.MakerDeb({}),
+  ],
+  plugins: [
+    new plugin_vite.VitePlugin({
+      // `build` can specify multiple entry builds, which can be Main process, Preload scripts, Worker process, etc.
+      // If you are familiar with Vite configuration, it will look really familiar.
+      build: [
+        {
+          // `entry` is just an alias for `build.lib.entry` in the corresponding file of `config`.
+          entry: "src/main.ts",
+          fileName: "main.js",
+          config: "vite.main.config.ts",
+        },
+        {
+          entry: "src/preload.ts",
+          fileName: "preload.js",
+          config: "vite.preload.config.ts",
+        },
+      ],
+      renderer: [
+        {
+          name: "main_window",
+          fileName: "renderer.js",
+          config: "vite.renderer.config.ts",
+        },
+      ],
+    }),
+  ],
+};
+exports.default = config;
